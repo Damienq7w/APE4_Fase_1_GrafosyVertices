@@ -1,0 +1,486 @@
+==================================================
+   RED SOCIAL "LOS ENLAZADOS" - APE 4 FASE 1
+==================================================
+Se cargo la red del reto: 6 usuarios y 5 amistades.
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: abc
+Error: 'abc' no es un numero.
+Opcion: 15
+Error: ingrese un numero entre 0 y 10.
+Opcion: 5
+
+V = {U1 Lucia, U2 Andres, U3 Camila, U4 Javier, U5 Renata, U6 Fabian}
+E = {e1 = {Lucia, Andres}, e2 = {Andres, Camila}, e3 = {Lucia, Camila}, e4 = {Lucia, Javier}, e5 = {Javier, Renata}}
+|V| = 6 usuarios (vertices), |E| = 5 amistades (aristas)
+Listas de adyacencia:
+  U1 Lucia -> Andres -> Camila -> Javier
+  U2 Andres -> Lucia -> Camila
+  U3 Camila -> Andres -> Lucia
+  U4 Javier -> Lucia -> Renata
+  U5 Renata -> Javier
+  U6 Fabian -> (sin amigos)
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 6
+
+Matriz de adyacencia (1 = son amigos):
+      U1 U2 U3 U4 U5 U6 
+  U1  0  1  1  1  0  0  
+  U2  1  0  1  0  0  0  
+  U3  1  1  0  0  0  0  
+  U4  1  0  0  0  1  0  
+  U5  0  0  0  1  0  0  
+  U6  0  0  0  0  0  0  
+Densidad = 5 / 15 parejas posibles = 33,3 %
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 7
+
+grado(U1 Lucia) = 3   vecinos = [Andres, Camila, Javier]
+grado(U2 Andres) = 2   vecinos = [Lucia, Camila]
+grado(U3 Camila) = 2   vecinos = [Andres, Lucia]
+grado(U4 Javier) = 2   vecinos = [Lucia, Renata]
+grado(U5 Renata) = 1   vecinos = [Javier]
+grado(U6 Fabian) = 0   vecinos = []
+Usuario aislado: Fabian | Mayor grado: Lucia (3)
+Suma de grados = 10 ; 2 x |E| = 10
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 8
+
+Ciclo encontrado (DFS): Lucia -> Andres -> Camila -> Lucia
+Componentes conexos: [{Lucia, Andres, Camila, Javier, Renata}, {Fabian}]
+No todos estan conectados: hay 2 componentes.
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 3
+
+ID del primer usuario: U1
+ID del segundo usuario: U2
+existeRelacion(U1, U2) = verdadero (son amigos)
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 3
+
+ID del primer usuario: U2
+ID del segundo usuario: U4
+existeRelacion(U2, U4) = falso (no son amigos)
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 3
+
+ID del primer usuario: U1
+ID del segundo usuario: U9
+ERROR de validacion: el ID U9 no existe en la red
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 4
+
+ID del usuario: U1
+vecinos(U1) = [Andres, Camila, Javier] ; grado(U1) = 3
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 4
+
+ID del usuario: U6
+vecinos(U6) = [] ; grado(U6) = 0
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 4
+
+ID del usuario: U9
+ERROR de validacion: el ID U9 no existe en la red
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 2
+
+ID del primer usuario: U4
+ID del segundo usuario: U4
+RECHAZADA (R2): un usuario no puede tener una amistad consigo mismo.
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 2
+
+ID del primer usuario: U3
+ID del segundo usuario: U2
+RECHAZADA (R4): la amistad entre Camila y Andres ya existe.
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 2
+
+ID del primer usuario: U1
+ID del segundo usuario: U7
+RECHAZADA (R1): el usuario U7 no existe; registrelo primero.
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 1
+
+ID de la persona (ej. U7): U1
+Nombre: Otra
+RECHAZADA (R6): ya existe una persona con el ID U1.
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 1
+
+ID de la persona (ej. U7): U7
+Nombre: 
+RECHAZADA (R7): el nombre no puede estar vacio.
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 1
+
+ID de la persona (ej. U7): U7
+Nombre: Diana
+ACEPTADA: U7 Diana
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 2
+
+ID del primer usuario: U7
+ID del segundo usuario: U6
+ACEPTADA: Diana - Fabian
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 4
+
+ID del usuario: U6
+vecinos(U6) = [Diana] ; grado(U6) = 1
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 9
+
+
+=== 1) G = (V, E) ===
+V = {U1 Lucia, U2 Andres, U3 Camila, U4 Javier, U5 Renata, U6 Fabian}
+E = {e1 = {Lucia, Andres}, e2 = {Andres, Camila}, e3 = {Lucia, Camila}, e4 = {Lucia, Javier}, e5 = {Javier, Renata}}
+|V| = 6 usuarios (vertices), |E| = 5 amistades (aristas)
+  [OK] Exactamente 6 vertices
+  [OK] Exactamente 5 aristas, contadas una vez
+
+=== 2) Simple, no dirigido y no ponderado ===
+Matriz de adyacencia (1 = son amigos):
+      U1 U2 U3 U4 U5 U6 
+  U1  0  1  1  1  0  0  
+  U2  1  0  1  0  0  0  
+  U3  1  1  0  0  0  0  
+  U4  1  0  0  0  1  0  
+  U5  0  0  0  1  0  0  
+  U6  0  0  0  0  0  0  
+Densidad = 5 / 15 parejas posibles = 33,3 %
+  [OK] Simple: diagonal en 0 (sin lazos)
+  [OK] Simple: sin duplicados (cada pareja una sola vez)
+  [OK] No dirigido: matriz simetrica (amistad mutua)
+No ponderado: las aristas solo guardan al amigo, sin peso (solo existe o no existe).
+
+=== 3) Grados ===
+grado(U1 Lucia) = 3   vecinos = [Andres, Camila, Javier]
+grado(U2 Andres) = 2   vecinos = [Lucia, Camila]
+grado(U3 Camila) = 2   vecinos = [Andres, Lucia]
+grado(U4 Javier) = 2   vecinos = [Lucia, Renata]
+grado(U5 Renata) = 1   vecinos = [Javier]
+grado(U6 Fabian) = 0   vecinos = []
+Usuario aislado: Fabian | Mayor grado: Lucia (3)
+Suma de grados = 10 ; 2 x |E| = 10
+  [OK] Hay al menos un usuario aislado (grado 0)
+  [OK] Hay al menos un usuario con grado >= 3
+  [OK] Suma de grados = 2 x numero de aristas
+
+=== 4) Ciclo y conexion ===
+Ciclo encontrado (DFS): Lucia -> Andres -> Camila -> Lucia
+Componentes conexos: [{Lucia, Andres, Camila, Javier, Renata}, {Fabian}]
+No todos estan conectados: hay 2 componentes.
+  [OK] Existe al menos un ciclo de 3 o mas vertices
+
+=== 5) existeRelacion, vecinos y grado ===
+existeRelacion(U1, U2) = verdadero
+existeRelacion(U4, U5) = verdadero
+existeRelacion(U2, U4) = falso
+existeRelacion(U5, U6) = falso
+existeRelacion(U2, U1) = verdadero
+vecinos(U1) = [Andres, Camila, Javier] ; grado(U1) = 3
+vecinos(U6) = [] ; grado(U6) = 0  (aislado, pero existe)
+vecinos(U9) -> ERROR de validacion: el ID U9 no existe en la red
+  [OK] Un ID inexistente da error y no se confunde con un aislado
+  [OK] existeRelacion(U1, U2) es verdadero
+  [OK] existeRelacion(U2, U4) es falso
+  [OK] Reciprocidad: existeRelacion(U2, U1) es verdadero
+
+=== 6) Operaciones que deben rechazarse ===
+proponerAmistad(U4, U4) -> RECHAZADA (R2): un usuario no puede tener una amistad consigo mismo.
+  [OK] Se rechaza proponerAmistad(U4, U4)
+proponerAmistad(U3, U2) -> RECHAZADA (R4): la amistad entre Camila y Andres ya existe.
+  [OK] Se rechaza proponerAmistad(U3, U2)
+proponerAmistad(U1, U7) -> RECHAZADA (R1): el usuario U7 no existe; registrelo primero.
+  [OK] Se rechaza proponerAmistad(U1, U7)
+registrarPersona(U1, Otra persona) -> RECHAZADA (R6): ya existe una persona con el ID U1.
+registrarPersona(U7, "   ") -> RECHAZADA (R7): el nombre no puede estar vacio.
+  [OK] Se rechaza un ID duplicado
+  [OK] Se rechaza un nombre vacio
+Despues de los rechazos: |V| = 6, |E| = 5
+  [OK] El grafo no cambio (6 vertices y 5 aristas)
+
+=== RESULTADO DE LAS VERIFICACIONES ===
+19 aprobadas, 0 fallidas.
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 10
+
+Red reiniciada: 6 usuarios y 5 amistades.
+
+------------------ MENU ------------------
+ 1. Registrar persona
+ 2. Proponer amistad
+ 3. Consultar existeRelacion
+ 4. Ver vecinos y grado de un usuario
+ 5. Mostrar G = (V, E) y listas de adyacencia
+ 6. Mostrar matriz de adyacencia y densidad
+ 7. Mostrar grados (aislado, mayor grado, suma)
+ 8. Buscar ciclo y componentes conexos
+ 9. Resolver el reto (6 preguntas + verificacion)
+10. Reiniciar la red "Los Enlazados"
+ 0. Salir
+------------------------------------------
+Opcion: 0
+
+Programa finalizado.
