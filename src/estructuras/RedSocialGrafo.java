@@ -1,45 +1,21 @@
+package estructuras;
+
 import java.util.ArrayList;
+import modelo.NodoAmistad;
+import modelo.Persona;
 
 /**
- * APE 4 - Fase 1: Reto de grafos y vertices.
- * Red social "Los Enlazados": 6 usuarios (vertices) y 5 amistades (aristas).
- * Grafo simple, no dirigido y no ponderado, con lista de adyacencia de nodos propios.
+ * Red social "Los Enlazados" como grafo simple, no dirigido y no ponderado,
+ * implementado con una lista de adyacencia de nodos propios.
  * Operaciones y reglas segun el contrato del Grupo 4: registrarPersona, proponerAmistad,
  * existeRelacion, vecinos y grado; reglas R1 (extremo inexistente), R2 (lazo),
  * R3 (reciprocidad), R4 (duplicado), R6 (ID duplicado) y R7 (nombre vacio).
- *
- * Compilar:  javac -d bin src/RedSocialGrafo.java
- * Ejecutar:  java -cp bin RedSocialGrafo
  *
  * Autor: Cunalata Mendoza Damian Alexander
  */
 public class RedSocialGrafo {
 
-    // ===================================================================== nodos propios
-    /** Vertice: una persona de la red, con su propia lista de amigos. */
-    static class Persona {
-        final String id;
-        final String nombre;
-        NodoAmistad primerAmigo;   // inicio de su lista de adyacencia
-        Persona siguiente;         // siguiente persona en la lista de vertices
-
-        Persona(String id, String nombre) {
-            this.id = id;
-            this.nombre = nombre;
-        }
-    }
-
-    /** Elemento de una lista de adyacencia: apunta al amigo (otro vertice). */
-    static class NodoAmistad {
-        final Persona amigo;
-        NodoAmistad siguiente;
-
-        NodoAmistad(Persona amigo) {
-            this.amigo = amigo;
-        }
-    }
-
-    // ===================================================================== grafo
+    // grafo
     private Persona primera;
     private Persona ultima;
     private int numPersonas;
@@ -76,11 +52,11 @@ public class RedSocialGrafo {
         if (primera == null) {
             primera = nueva;
         } else {
-            ultima.siguiente = nueva;
+            ultima.setSiguiente(nueva);
         }
         ultima = nueva;
         numPersonas++;
-        return "ACEPTADA: " + nueva.id + " " + nueva.nombre;
+        return "ACEPTADA: " + nueva.getId() + " " + nueva.getNombre();
     }
 
     /** RF02. Propone una amistad entre dos personas. Devuelve el resultado como texto. */
@@ -94,13 +70,13 @@ public class RedSocialGrafo {
             return "RECHAZADA (R2): un usuario no puede tener una amistad consigo mismo.";
         }
         if (sonAmigos(a, b)) {
-            return "RECHAZADA (R4): la amistad entre " + a.nombre + " y " + b.nombre + " ya existe.";
+            return "RECHAZADA (R4): la amistad entre " + a.getNombre() + " y " + b.getNombre() + " ya existe.";
         }
         agregarAlFinal(a, b);   // R3: la amistad se guarda en ambos sentidos
         agregarAlFinal(b, a);
         numAmistades++;
-        aristas.add("e" + numAmistades + " = {" + a.nombre + ", " + b.nombre + "}");
-        return "ACEPTADA: " + a.nombre + " - " + b.nombre;
+        aristas.add("e" + numAmistades + " = {" + a.getNombre() + ", " + b.getNombre() + "}");
+        return "ACEPTADA: " + a.getNombre() + " - " + b.getNombre();
     }
 
     /** RF03. Verdadero si hay una arista directa entre A y B. Error si un ID no existe. */
@@ -111,8 +87,8 @@ public class RedSocialGrafo {
     /** RF04. Lista de vecinos (amigos directos). Error si el ID no existe. */
     public ArrayList<String> vecinos(String id) {
         ArrayList<String> lista = new ArrayList<>();
-        for (NodoAmistad n = validar(id).primerAmigo; n != null; n = n.siguiente) {
-            lista.add(n.amigo.nombre);
+        for (NodoAmistad n = validar(id).getPrimerAmigo(); n != null; n = n.getSiguiente()) {
+            lista.add(n.getAmigo().getNombre());
         }
         return lista;
     }
@@ -122,12 +98,12 @@ public class RedSocialGrafo {
         return vecinos(id).size();
     }
 
-    // ===================================================================== analisis del grafo
+    // analisis del grafo
     /** Busca un ciclo con DFS. Devuelve el recorrido (por ejemplo "Lucia -> Andres -> Camila -> Lucia") o null. */
     public String buscarCiclo() {
         Persona[] padre = new Persona[numPersonas];
         boolean[] visitado = new boolean[numPersonas];
-        for (Persona p = primera; p != null; p = p.siguiente) {
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
             if (!visitado[indice(p)]) {
                 String ciclo = dfsCiclo(p, null, visitado, padre);
                 if (ciclo != null) {
@@ -141,8 +117,8 @@ public class RedSocialGrafo {
     private String dfsCiclo(Persona actual, Persona desde, boolean[] visitado, Persona[] padre) {
         visitado[indice(actual)] = true;
         padre[indice(actual)] = desde;
-        for (NodoAmistad n = actual.primerAmigo; n != null; n = n.siguiente) {
-            Persona v = n.amigo;
+        for (NodoAmistad n = actual.getPrimerAmigo(); n != null; n = n.getSiguiente()) {
+            Persona v = n.getAmigo();
             if (!visitado[indice(v)]) {
                 String ciclo = dfsCiclo(v, actual, visitado, padre);
                 if (ciclo != null) {
@@ -150,11 +126,11 @@ public class RedSocialGrafo {
                 }
             } else if (v != desde) {
                 // arista de retroceso: se reconstruye el ciclo subiendo por los padres
-                String camino = v.nombre;
+                String camino = v.getNombre();
                 for (Persona p = actual; p != v; p = padre[indice(p)]) {
-                    camino = p.nombre + " -> " + camino;
+                    camino = p.getNombre() + " -> " + camino;
                 }
-                return v.nombre + " -> " + camino;
+                return v.getNombre() + " -> " + camino;
             }
         }
         return null;
@@ -164,7 +140,7 @@ public class RedSocialGrafo {
     public ArrayList<String> componentes() {
         ArrayList<String> grupos = new ArrayList<>();
         boolean[] visitado = new boolean[numPersonas];
-        for (Persona p = primera; p != null; p = p.siguiente) {
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
             if (!visitado[indice(p)]) {
                 ArrayList<String> grupo = new ArrayList<>();
                 marcar(p, visitado, grupo);
@@ -176,10 +152,10 @@ public class RedSocialGrafo {
 
     private void marcar(Persona p, boolean[] visitado, ArrayList<String> grupo) {
         visitado[indice(p)] = true;
-        grupo.add(p.nombre);
-        for (NodoAmistad n = p.primerAmigo; n != null; n = n.siguiente) {
-            if (!visitado[indice(n.amigo)]) {
-                marcar(n.amigo, visitado, grupo);
+        grupo.add(p.getNombre());
+        for (NodoAmistad n = p.getPrimerAmigo(); n != null; n = n.getSiguiente()) {
+            if (!visitado[indice(n.getAmigo())]) {
+                marcar(n.getAmigo(), visitado, grupo);
             }
         }
     }
@@ -187,9 +163,9 @@ public class RedSocialGrafo {
     /** Matriz de adyacencia n x n (comprobacion propuesta por el Grupo 4). */
     public int[][] matrizAdyacencia() {
         int[][] m = new int[numPersonas][numPersonas];
-        for (Persona p = primera; p != null; p = p.siguiente) {
-            for (NodoAmistad n = p.primerAmigo; n != null; n = n.siguiente) {
-                m[indice(p)][indice(n.amigo)] = 1;
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
+            for (NodoAmistad n = p.getPrimerAmigo(); n != null; n = n.getSiguiente()) {
+                m[indice(p)][indice(n.getAmigo())] = 1;
             }
         }
         return m;
@@ -203,19 +179,19 @@ public class RedSocialGrafo {
     /** Usuarios con grado 0. */
     public ArrayList<String> aislados() {
         ArrayList<String> lista = new ArrayList<>();
-        for (Persona p = primera; p != null; p = p.siguiente) {
-            if (p.primerAmigo == null) {
-                lista.add(p.nombre);
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
+            if (p.getPrimerAmigo() == null) {
+                lista.add(p.getNombre());
             }
         }
         return lista;
     }
 
-    // ===================================================================== salida en consola
+    // salida en consola
     public void mostrarVE() {
         StringBuilder v = new StringBuilder();
-        for (Persona p = primera; p != null; p = p.siguiente) {
-            v.append(v.length() == 0 ? "" : ", ").append(p.id).append(" ").append(p.nombre);
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
+            v.append(v.length() == 0 ? "" : ", ").append(p.getId()).append(" ").append(p.getNombre());
         }
         System.out.println("V = {" + v + "}");
         System.out.println("E = {" + String.join(", ", aristas) + "}");
@@ -224,9 +200,9 @@ public class RedSocialGrafo {
 
     public void mostrarListas() {
         System.out.println("Listas de adyacencia:");
-        for (Persona p = primera; p != null; p = p.siguiente) {
-            ArrayList<String> amigos = vecinos(p.id);
-            System.out.println("  " + p.id + " " + p.nombre + " -> "
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
+            ArrayList<String> amigos = vecinos(p.getId());
+            System.out.println("  " + p.getId() + " " + p.getNombre() + " -> "
                     + (amigos.isEmpty() ? "(sin amigos)" : String.join(" -> ", amigos)));
         }
     }
@@ -235,13 +211,13 @@ public class RedSocialGrafo {
         int[][] m = matrizAdyacencia();
         System.out.println("Matriz de adyacencia (1 = son amigos):");
         StringBuilder cabecera = new StringBuilder("      ");
-        for (Persona p = primera; p != null; p = p.siguiente) {
-            cabecera.append(String.format("%-3s", p.id));
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
+            cabecera.append(String.format("%-3s", p.getId()));
         }
         System.out.println(cabecera);
         int fila = 0;
-        for (Persona p = primera; p != null; p = p.siguiente, fila++) {
-            StringBuilder linea = new StringBuilder(String.format("  %-4s", p.id));
+        for (Persona p = primera; p != null; p = p.getSiguiente(), fila++) {
+            StringBuilder linea = new StringBuilder(String.format("  %-4s", p.getId()));
             for (int col = 0; col < m.length; col++) {
                 linea.append(String.format("%-3d", m[fila][col]));
             }
@@ -256,13 +232,13 @@ public class RedSocialGrafo {
         int suma = 0;
         int gradoMayor = -1;
         String mayor = "-";
-        for (Persona p = primera; p != null; p = p.siguiente) {
-            int g = grado(p.id);
-            System.out.println("grado(" + p.id + " " + p.nombre + ") = " + g + "   vecinos = " + vecinos(p.id));
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
+            int g = grado(p.getId());
+            System.out.println("grado(" + p.getId() + " " + p.getNombre() + ") = " + g + "   vecinos = " + vecinos(p.getId()));
             suma += g;
             if (g > gradoMayor) {
                 gradoMayor = g;
-                mayor = p.nombre;
+                mayor = p.getNombre();
             }
         }
         ArrayList<String> sinAmigos = aislados();
@@ -283,13 +259,13 @@ public class RedSocialGrafo {
         return ciclo;
     }
 
-    // ===================================================================== auxiliares
+    // auxiliares
     private Persona buscar(String id) {
         if (id == null) {
             return null;
         }
-        for (Persona p = primera; p != null; p = p.siguiente) {
-            if (p.id.equalsIgnoreCase(id.trim())) {
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
+            if (p.getId().equalsIgnoreCase(id.trim())) {
                 return p;
             }
         }
@@ -306,8 +282,8 @@ public class RedSocialGrafo {
     }
 
     private boolean sonAmigos(Persona a, Persona b) {
-        for (NodoAmistad n = a.primerAmigo; n != null; n = n.siguiente) {
-            if (n.amigo == b) {
+        for (NodoAmistad n = a.getPrimerAmigo(); n != null; n = n.getSiguiente()) {
+            if (n.getAmigo() == b) {
                 return true;
             }
         }
@@ -316,40 +292,55 @@ public class RedSocialGrafo {
 
     private void agregarAlFinal(Persona origen, Persona amigo) {
         NodoAmistad nuevo = new NodoAmistad(amigo);
-        if (origen.primerAmigo == null) {
-            origen.primerAmigo = nuevo;
+        if (origen.getPrimerAmigo() == null) {
+            origen.setPrimerAmigo(nuevo);
             return;
         }
-        NodoAmistad n = origen.primerAmigo;
-        while (n.siguiente != null) {
-            n = n.siguiente;
+        NodoAmistad n = origen.getPrimerAmigo();
+        while (n.getSiguiente() != null) {
+            n = n.getSiguiente();
         }
-        n.siguiente = nuevo;
+        n.setSiguiente(nuevo);
     }
 
     /** Posicion 0..n-1 de la persona en la lista de vertices. */
     private int indice(Persona buscada) {
         int i = 0;
-        for (Persona p = primera; p != buscada; p = p.siguiente) {
+        for (Persona p = primera; p != buscada; p = p.getSiguiente()) {
             i++;
         }
         return i;
     }
 
-    // ===================================================================== prueba de consultas y analisis
-    public static void main(String[] args) {
-        RedSocialGrafo red = losEnlazados();
-        red.mostrarVE();
-        red.mostrarListas();
-        red.mostrarMatriz();
-        red.mostrarGrados();
-        red.mostrarCicloYComponentes();
-        System.out.println("existeRelacion(U1, U2) = " + red.existeRelacion("U1", "U2"));
-        System.out.println("existeRelacion(U2, U4) = " + red.existeRelacion("U2", "U4"));
-        try {
-            red.vecinos("U9");
-        } catch (IllegalArgumentException e) {
-            System.out.println("vecinos(U9) -> ERROR de validacion: " + e.getMessage());
+    // consultas usadas por la aplicacion
+    public int getNumPersonas() {
+        return numPersonas;
+    }
+
+    public int getNumAmistades() {
+        return numAmistades;
+    }
+
+    /** Mayor grado de la red (0 si esta vacia). */
+    public int gradoMaximo() {
+        int mayor = 0;
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
+            mayor = Math.max(mayor, grado(p.getId()));
         }
+        return mayor;
+    }
+
+    /** Revisa que ningun amigo aparezca dos veces en la lista de adyacencia de una persona. */
+    public boolean sinDuplicados() {
+        for (Persona p = primera; p != null; p = p.getSiguiente()) {
+            for (NodoAmistad a = p.getPrimerAmigo(); a != null; a = a.getSiguiente()) {
+                for (NodoAmistad b = a.getSiguiente(); b != null; b = b.getSiguiente()) {
+                    if (a.getAmigo() == b.getAmigo()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
